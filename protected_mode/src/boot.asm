@@ -1,7 +1,9 @@
-[bits 16]
-org 0x7C00 
 
-start:
+section .boot 
+[bits 16]
+global boot
+
+boot:
 
     ;enable a20 line 
     mov ax, 0x2401 
@@ -104,11 +106,21 @@ boot2:
     jmp .loop 
 
 halt:
+
+    mov esp, kernel_stack_top
+    extern kmain
+    call kmain 
+
     cli 
     hlt 
 
+section .bss 
+align 4 
 
+kernel_stack_bottom: equ $ 
+        resb 16384 
 
+kernel_stack_top:
 
 
 
