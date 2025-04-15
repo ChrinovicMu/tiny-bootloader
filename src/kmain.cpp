@@ -1,4 +1,5 @@
 
+
 extern "C" void kmain()
 {
     const short color = 0x0F00;
